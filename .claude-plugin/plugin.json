@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "mr-docs",
+  "displayName": "Mr. Docs",
+  "version": "0.1.0",
+  "description": "LLMとの調査・設計対話で得た知見をプロジェクトのdocs/に体系的にキャプチャし、後で精査・整理できるようにするプラグイン",
+  "author": {
+    "name": "cou723"
+  },
+  "license": "MIT",
+  "keywords": ["docs", "documentation", "knowledge-management", "agents-md"]
+}

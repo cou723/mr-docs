@@ -1,0 +1,26 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "mr-docs",
+  "metadata": {
+    "description": "LLMとの調査・設計対話で得た知見をdocs/に体系的にキャプチャ・精査するプラグイン",
+    "version": "0.1.0"
+  },
+  "owner": {
+    "name": "cou723"
+  },
+  "plugins": [
+    {
+      "name": "mr-docs",
+      "source": "./",
+      "description": "LLMとの調査・設計対話で得た知見をプロジェクトのdocs/に体系的にキャプチャし、後で精査・整理できるようにするプラグイン",
+      "version": "0.1.0",
+      "category": "development",
+      "author": {
+        "name": "cou723"
+      },
+      "license": "MIT",
+      "keywords": ["docs", "documentation", "knowledge-management", "agents-md"]
+    }
+  ],
+  "version": "0.1.0"
+}
