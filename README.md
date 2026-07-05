@@ -8,7 +8,7 @@ LLMコーディング時代の「調査・設計対話で得た知見が、明�
 
 - **キャプチャ層**: 調査結果を無秩序に受け皿(`docs/notes/inbox/`)へ投入する。分類コストをここで払わない。
 - **精査層**: inboxを`doc-gardener`サブエージェントが精査し、`docs/knowledge/`への統合・昇格や`docs/archive/`への退避、陳腐化検知を行う。破壊的操作(マージ・退避)を含むため、手動実行かつコミットは人間に委ねる設計。
-- **配布層**: このプラグイン自体。
+- **配布層**: 上記の構造とキャプチャ規則を各プロジェクトへ導入・運用する仕組み。このプラグインが担う。
 
 ### スキルとエージェントの役割分担
 
@@ -25,6 +25,13 @@ LLMコーディング時代の「調査・設計対話で得た知見が、明�
 | `/mr-docs:init` | プロジェクトに `docs/notes/inbox`, `docs/knowledge`, `docs/archive`, `docs/index.md` の構造とAGENTS.md/CLAUDE.mdへのキャプチャ規則を導入する。プロジェクトごとに最初の1回だけ実行する | `agents/docs-scaffolder.md` |
 | `/mr-docs:capture` | 調査・設計検討の結果を要約し、`docs/notes/inbox/` への保存を依頼する。手動でも呼べるが、まとまった調査を行った回答の最後にClaudeが自発的に呼ぶことを想定している | `agents/note-capturer.md` |
 | `/mr-docs:garden` | inboxの精査(マージ/昇格/退避)・knowledgeの陳腐化検知・`docs/index.md`の再生成を行う。破壊的操作を含むため手動実行のみで、`git commit`はしない | `agents/doc-gardener.md` |
+
+## インストール
+
+```
+/plugin marketplace add cou723/mr-docs
+/plugin install mr-docs@mr-docs
+```
 
 ## 使い方
 

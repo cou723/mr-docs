@@ -31,7 +31,13 @@ maxTurns: 15
 調査結果は `docs/notes/inbox/` に溜まっている。定期的に `/mr-docs:garden` で精査し、価値があるものをここに昇格させること。
 ```
 
-3. `AGENTS.md` と `CLAUDE.md` の有無を確認する。どちらか一方が既に存在すればそちらに追記し(新規に別ファイルを作らない)、どちらも存在しなければ `AGENTS.md` を新規作成する。追記対象ファイルに `<!-- mr-docs:capture-rule:start -->` マーカーが既にあれば、二重追記を避けるため何もしない。マーカーがなければ末尾に以下を追記する。
+3. `AGENTS.md` と `CLAUDE.md` の有無を確認し、追記先を1つ決める(新規に別ファイルは作らない)。
+
+   - 両方存在する → `AGENTS.md` に追記する(`CLAUDE.md` が `AGENTS.md` を参照する構成が多いため)
+   - 片方だけ存在する → 存在する方に追記する
+   - どちらも存在しない → `AGENTS.md` を新規作成する
+
+   ただし、`<!-- mr-docs:capture-rule:start -->` マーカーが `AGENTS.md`・`CLAUDE.md` のどちらかに既にあれば、二重追記を避けるため何もしない。マーカーがなければ追記先の末尾に以下を追記する。
 
 ```markdown
 <!-- mr-docs:capture-rule:start -->
