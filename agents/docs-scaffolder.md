@@ -43,7 +43,7 @@ maxTurns: 15
 <!-- mr-docs:capture-rule:start -->
 ## ドキュメントキャプチャ (mr-docs)
 
-Web調査・技術比較・設計検討など、後で参照したい調査結果を得たら、回答を終える前に `/mr-docs:capture` スキルで `docs/notes/inbox/` に保存すること。
+Web調査・技術比較・設計検討など、後で参照したい調査結果を得たら、回答を終える前に `/mr-docs:capture` スキルで `docs/notes/inbox/` に保存すること。検討の結果「何もしない」と決めた場合も、却下した選択肢と理由に再利用価値があるため保存対象。
 
 - 保存先: `docs/notes/inbox/YYYY-MM-DD-<topic>.md`
 - 目次: `docs/index.md`(精査済みドキュメントの目次。`/mr-docs:garden` で更新する)
