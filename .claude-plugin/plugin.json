@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "mr-docs",
   "displayName": "Mr. Docs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "LLMとの調査・設計対話で得た知見をプロジェクトのdocs/に体系的にキャプチャし、後で精査・整理できるようにするプラグイン",
   "author": {
     "name": "cou723"
