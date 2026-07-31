@@ -1,0 +1,59 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Claude Code
+        run: |
+          curl -fsSL https://claude.ai/install.sh | bash -s stable
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Validate marketplace manifest
+        run: claude plugin validate . --strict
+
+      # リポジトリのルートがマーケットプレイス兼プラグインなので、ディレクトリを
+      # 渡すと marketplace.json だけが検証される。plugin.json を直接指定すると
+      # skills/ と agents/ の frontmatter まで検証対象になる。
+      - name: Validate plugin manifest and components
+        run: claude plugin validate .claude-plugin/plugin.json --strict
+
+      - name: Smoke test install
+        run: |
+          claude plugin marketplace add ./
+          claude plugin install mr-docs@mr-docs
+          claude plugin list
+
+      # version を固定している以上、バンプを忘れると利用者にはキャッシュが
+      # 使われ続けて更新が届かない。本体の変更時だけバンプを必須にする。
+      - name: Check version bump
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          set -euo pipefail
+          if [ -z "${BASE_SHA:-}" ] || ! git cat-file -e "${BASE_SHA}^{commit}" 2>/dev/null; then
+            echo "比較対象のコミットが無いためスキップ"
+            exit 0
+          fi
+          changed=$(git diff --name-only "$BASE_SHA" "$GITHUB_SHA" -- skills agents .claude-plugin/plugin.json)
+          if [ -z "$changed" ]; then
+            echo "プラグイン本体の変更なし"
+            exit 0
+          fi
+          old=$(git show "$BASE_SHA:.claude-plugin/plugin.json" | jq -r '.version')
+          new=$(jq -r '.version' .claude-plugin/plugin.json)
+          if [ "$old" = "$new" ]; then
+            echo "::error file=.claude-plugin/plugin.json::プラグイン本体が変更されていますが version が $old のままです。バンプしないと既存の利用者に更新が届きません"
+            exit 1
+          fi
+          echo "version: $old -> $new"
